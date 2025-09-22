@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form validation</title>
+     <!-- <script src="https://cdn.tailwindcss.com"></script>    -->
+     <link rel="stylesheet" href="./output.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg- p-8 rounded-xl shadow-2xl  w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-6 text-purple-300">Registration form</h2>
+        <form id="myForm" onsubmit="return validateForm()" class="space-y-4">
+            <div>
+                <!--name-->
+                <div>
+                    <label for="name" class="block text-gray-700 font-medium">Full Name:</label>
+                    <input type="text" id="name" name="name" class="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none">
+                    <p class="text-red-500 text-sm mt-1" id="nameError"></p>
+                </div>
+                <!--email-->
+                <div>
+                    <label for="email" class="block text-gray-700 font-medium">Email:</label>
+                    <input type="email" id="email"name="email" class="w-full mt-1 px-2 py-2 border rounded-lg focus:outline-none">
+                    <p class="text-red-500 text-sm mt-1" id="emailError"></p>
+                </div>
+                <!--password-->
+                <div>
+                    <label for="password" class="block text-gray-700 font-medium">Password:</label>
+                    <input type="password" id="password" name="password" class="w-full mt-1 px-2 py-2 border rounded-lg focus:outline-none">
+                    <p class="text-red-500 text-sm mt-1" id="passwordError"></p>
+                </div>
+                
+                <!--Confirm password-->
+                <div>
+                    <label for="confirmPassword" class="block text-gray-700 font-medium">Confirm Password:</label>
+                    <input type="password" id="confirmPassword"   class="w-full mt-1 px-2 py-2 border rounded-lg focus:outline-none">
+                    <p class="text-red-500 text-sm mt-1" id="confirmPasswordError"></p>
+                </div>
+                <button type="submit"class="w-full bg-purple-300 text-white py-2 rounded-lg hover:bg-purple-400 transition">Submit</button>
+                <p class="text-green-500 text-center font-medium mt-3" id="successMessage"></p>
+            </div>
+        </form>
+    </div>  
+</body>
+<script src="./script.js"></script>
+</html>
