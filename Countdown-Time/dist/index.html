@@ -1,12 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="./output.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+   <link href="./output.css" rel="stylesheet">
 </head>
-<body class="bg-gray-900 flex items-center justify-center min-h-screen">
-    <p class="text-white">hello</p>
+<body class="bg-gray-100 text-gray-900 flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg text-center">
+    <h1 class="text-2xl font-bold mb-4">Countdown Timer</h1>
+    <div id="countdown" class="text-3xl font-mono mb-6">00:00:00:00</div>
+    
+    <div class="flex justify-center gap-4 mb-4">
+      <button id="startBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start</button>
+      <button id="pauseBtn" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Pause</button>
+      <button id="resumeBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Resume</button>
+      <button id="resetBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Reset</button>
+    </div>
+
+    <input id="timeInput" type="number" placeholder="Enter seconds" class="w-full p-2 border rounded-lg mb-4" />
+  </div>
+
+  <script>
+    let countdown;
+    let remainingTime = 0;
+    let isPaused = false;
+
+    const countdownEl = document.getElementById('countdown');
+    const timeInput = document.getElementById('timeInput');
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+      clearInterval(countdown);
+      remainingTime = parseInt(timeInput.value) || 0;
+      if (remainingTime > 0) startCountdown();
+    });
+
+    document.getElementById('pauseBtn').addEventListener('click', () => {
+      isPaused = true;
+      clearInterval(countdown);
+    });
+
+    document.getElementById('resumeBtn').addEventListener('click', () => {
+      if (isPaused && remainingTime > 0) {
+        isPaused = false;
+        startCountdown();
+      }
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      clearInterval(countdown);
+      countdownEl.textContent = "00:00:00:00";
+      remainingTime = 0;
+      isPaused = false;
+    });
+
+    function startCountdown() {
+      countdown = setInterval(() => {
+        if (!isPaused && remainingTime > 0) {
+          remainingTime--;
+          displayTime(remainingTime);
+        } else if (remainingTime <= 0) {
+          clearInterval(countdown);
+          alert("Countdown finished!");
+        }
+      }, 1000);
+    }
+
+    function displayTime(seconds) {
+      const days = Math.floor(seconds / 86400);
+      const hrs = Math.floor((seconds % 86400) / 3600);
+      const mins = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+
+      countdownEl.textContent =
+        `${String(days).padStart(2, '0')}:${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+  </script>
 </body>
 </html>
